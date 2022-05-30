@@ -42,14 +42,16 @@ function loginUser($conn, $userinput, $pwd)
     }
 
     $pwdHashed = $userExistReturn["usersPwd"];
+    $pwdHashed = password_hash($pwdHashed, PASSWORD_DEFAULT);
     $checkPwd = password_verify($pwd, $pwdHashed);
     
-    if ($checkPwd === false){
+    if ($checkPwd === false){       
         header("location: ../login_menu.php?error=invalidLogin");
         exit();
     }
     else if ($checkPwd === true){
         session_start();
+        $_SESSION['loggedin'] = true;
         $_SESSION["userid"] = $userExistReturn["usersId"];
         $_SESSION["useruid"] = $userExistReturn["usersUid"];
         header("location: ../main_menu/index.php");
