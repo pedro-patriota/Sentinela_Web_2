@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <?php
-    session_start(); 
-?>
-<?php
-    if (isset($_SESSION["userid"])){
-        echo "Olá, bem vindo a sua página principal" + $_SESSION["useruid"];
+    session_start();
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+        echo "<li><a href='../backend/logout.php'>Log out</a></li>";
+        exit();
 
     }
     else{
